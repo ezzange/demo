@@ -1,0 +1,48 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  h2:
+    console:
+      path: /h2
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        # 1+N 문제 임시 해결
+        default_batch_fetch_size: 1000
+logging.level:
+  org.hibernate.SQL: debug
+  org:
+    hibernate:
+      type:
+        descriptor:
+          sql:
+            org.hibernate.type.descriptor.sql.BasicBinder: trace
+    springframework:
+      web.servlet: debug
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    display-request-duration: true
+  api-docs:
+    path: /api-docs
+  show-actuator: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  paths-to-match:
+    - /api/**
